@@ -2,8 +2,39 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
 # Home page
-GET     /                           controllers.ApplicationController.index()
+GET       	/                  		@controllers.Application.index
+GET			/test					@controllers.Application.test
+GET        	/userAware           	@controllers.Application.userAware
+GET        	/only-facebook       	@controllers.Application.onlyFacebook
+GET        	/link-result         	@controllers.Application.linkResult
+GET        	/current-user        	@controllers.Application.currentUser
+
+# User Account Routes -- Possibly refactor changeXXX and deleteAccount into Settings routes
+# GET		/signup					@controllers.AccountController.signup
+# GET		/login					@controllers.AccountController.login
+# POST		/login					@controllers.AccountController.login
+# POST		/logout					@controllers.AccountController.logout
+# POST		/changePassword			@controllers.AccountController.changePassword
+# POST		/changeEmail			@controllers.AccountController.changeEmail
+# POST		/changeUsername			@controllers.AccountController.changeUsername
+# POST		/deleteAccount			@controllers.AccountController.deleteAccount
+
+# Settings Routes
+# GET		/settings				@controllers.SettingsController.settings
+# POST		/settings				@controllers.SettingsController.settings
+
+# Feed Routes -- deals with reading/writing posts
+# GET		/feed					@controllers.FeedController.feed(maxId: long, sinceId: long, longitude: long, latitude: long)
+# GET		/post					@controllers.FeedController.post(postId: long) # For viewing individual posts details
+# POST		/post					@controllers.FeedController.post()
+
+
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET        	/assets/*file        	controllers.Assets.at(path="/public", file)
+->         	/auth                	securesocial.Routes
