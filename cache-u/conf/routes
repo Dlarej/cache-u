@@ -14,6 +14,9 @@ GET        	/only-facebook       	@controllers.Application.onlyFacebook
 GET        	/link-result         	@controllers.Application.linkResult
 GET        	/current-user        	@controllers.Application.currentUser
 
+# Test Location related operations
+GET			/nearby					@controllers.GeoController.nearby(latitude: utilities.DoubleW, longitude: utilities.DoubleW)
+
 # User Account Routes -- Possibly refactor changeXXX and deleteAccount into Settings routes
 # GET		/signup					@controllers.AccountController.signup
 # GET		/login					@controllers.AccountController.login

@@ -23,3 +23,4 @@ javacOptions ++= Seq("-source", "1.6", "-target", "1.6", "-encoding", "UTF-8", "
 scalacOptions := Seq("-encoding", "UTF-8", "-Xlint", "-deprecation", "-unchecked", "-feature")
 
 routesImport ++= Seq("scala.language.reflectiveCalls")
+

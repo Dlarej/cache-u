@@ -16,6 +16,10 @@
  */
 package controllers;
 
+import com.restfb.DefaultFacebookClient;
+import com.restfb.FacebookClient;
+import com.restfb.types.User;
+
 import play.Logger;
 import play.libs.F;
 import play.mvc.Controller;
@@ -57,6 +61,9 @@ public class Application extends Controller {
             logger.debug("access granted to index");
         }
         DemoUser user = (DemoUser) ctx().args.get(SecureSocial.USER_KEY);
+        FacebookClient facebookClient = new DefaultFacebookClient(user.main.oAuth2Info().get().accessToken());
+        User fbUser = facebookClient.fetchObject("me", User.class);
+        System.out.println("User name: " + fbUser.getName());
         return ok(index.render(user, SecureSocial.env()));
     }
 
@@ -65,7 +72,8 @@ public class Application extends Controller {
         if(logger.isDebugEnabled()){
             logger.debug("access granted to test");
         }
-        return ok("HELLLOOOOOO");
+        
+        return ok(response().toString());
     }
     
     @UserAwareAction
