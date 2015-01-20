@@ -76,7 +76,8 @@ public class FeedController extends Controller {
     	String postType = "1";
     	String anonymous = "0";
     	connection = DriverManager.getConnection(DB_URL,USER,PASS);
-    	statement = connection.prepareStatement("INSERT INTO Posts VALUES (" +
+    	statement = connection.prepareStatement("INSERT INTO Posts " +
+    		    "(postId, userId, timestamp, latitude, longitude, pointofinterest, postType) VALUES (" +
 				"'" + postId + "'," +
 				"'" + userId + "'," +
 				"'" + timestamp + "'," +
