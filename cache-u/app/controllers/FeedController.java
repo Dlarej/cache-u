@@ -75,6 +75,7 @@ public class FeedController extends Controller {
     	String pointOfInterest = "Avant Gardeners";
     	String postType = "1";
     	String anonymous = "0";
+    	connection = DriverManager.getConnection(DB_URL,USER,PASS);
     	statement = connection.prepareStatement("INSERT INTO Posts VALUES (" +
 				"'" + postId + "'," +
 				"'" + userId + "'," +
