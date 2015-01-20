@@ -80,8 +80,7 @@ public class FeedController extends Controller {
     	String latitude = mLatitude.javascriptUnbind();
     	String longitude = mLongitude.javascriptUnbind();
     	String pointOfInterest = "MyHouseID";
-    	String postType = "1";
-    	String anonymous = "0";
+    	String postType = "0";
     	connection = DriverManager.getConnection(DB_URL,USER,PASS);
     	statement = connection.prepareStatement("INSERT INTO Posts " +
     		    "(postId, userId, timestamp, latitude, longitude, pointofinterest, postType) VALUES (" +
