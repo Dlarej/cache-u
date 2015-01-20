@@ -34,7 +34,7 @@ GET			/nearby					@controllers.GeoController.nearby(latitude: utilities.DoubleW,
 # Feed Routes -- deals with reading/writing posts
 # GET		/feed					@controllers.FeedController.feed(maxId: long, sinceId: long, longitude: long, latitude: long)
 # GET		/post					@controllers.FeedController.post(postId: long) # For viewing individual posts details
-# POST		/post					@controllers.FeedController.post()
+POST		/post					@controllers.FeedController.post(latitude: long, longitude: long)
 
 
 
