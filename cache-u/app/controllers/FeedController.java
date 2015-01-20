@@ -75,7 +75,7 @@ public class FeedController extends Controller {
 		Date date = new Date();
 		java.sql.Date dateDB = new java.sql.Date(date.getTime());
     	String postId = "testPostId";
-    	String userId = "";
+    	String userId = "10203373126632130";
     	String timestamp = dateDB.toString();
     	String latitude = mLatitude.javascriptUnbind();
     	String longitude = mLongitude.javascriptUnbind();
