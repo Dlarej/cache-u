@@ -79,7 +79,7 @@ public class FeedController extends Controller {
     	String timestamp = dateDB.toString();
     	String latitude = mLatitude.javascriptUnbind();
     	String longitude = mLongitude.javascriptUnbind();
-    	String pointOfInterest = "Avant Gardeners";
+    	String pointOfInterest = "MyHouseID";
     	String postType = "1";
     	String anonymous = "0";
     	connection = DriverManager.getConnection(DB_URL,USER,PASS);
