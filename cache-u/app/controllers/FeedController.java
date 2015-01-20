@@ -74,12 +74,13 @@ public class FeedController extends Controller {
     	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		//get current date time with Date()
 		Date date = new Date();
+		dateFormat.format(date);
 		java.sql.Date dateDB = new java.sql.Date(date.getTime());
 		Random r = new Random();
 		r.setSeed(System.currentTimeMillis());
     	String postId = String.valueOf(r.nextInt());
     	String userId = "10203373126632130";
-    	String timestamp = dateDB.toString();
+    	String timestamp = dateFormat.format(dateDB);
     	String latitude = mLatitude.javascriptUnbind();
     	String longitude = mLongitude.javascriptUnbind();
     	String pointOfInterest = "MyHouseID";
@@ -99,5 +100,14 @@ public class FeedController extends Controller {
 		connection.close();
     	
     	return ok();
+    }
+    
+    /**
+     * Returns list of posts in the same area. For now limit to 10.
+     * 
+     */
+    public Result feed(DoubleW maxId, DoubleW sinceId, DoubleW latitude, DoubleW longitude) {
+    	
+		return null;
     }
 }
