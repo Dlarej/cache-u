@@ -32,7 +32,7 @@ GET			/nearby					@controllers.GeoController.nearby(latitude: utilities.DoubleW,
 # POST		/settings				@controllers.SettingsController.settings
 
 # Feed Routes -- deals with reading/writing posts
- GET		/feed					@controllers.FeedController.feed(maxId: utilities.DoubleW, sinceId: utilities.DoubleW, longitude: utilities.DoubleW, latitude: utilities.DoubleW)
+GET			/feed					@controllers.FeedController.feed(maxId: utilities.DoubleW, sinceId: utilities.DoubleW, longitude: utilities.DoubleW, latitude: utilities.DoubleW)
 # GET		/post					@controllers.FeedController.post(postId: long) # For viewing individual posts details
 POST		/post					@controllers.FeedController.post(latitude: utilities.DoubleW, longitude: utilities.DoubleW)
 
