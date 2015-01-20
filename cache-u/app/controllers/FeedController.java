@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 import models.PointOfInterest;
 
@@ -74,7 +75,9 @@ public class FeedController extends Controller {
 		//get current date time with Date()
 		Date date = new Date();
 		java.sql.Date dateDB = new java.sql.Date(date.getTime());
-    	String postId = "testPostId";
+		Random r = new Random();
+		r.setSeed(System.currentTimeMillis());
+    	String postId = String.valueOf(r.nextInt());
     	String userId = "10203373126632130";
     	String timestamp = dateDB.toString();
     	String latitude = mLatitude.javascriptUnbind();
