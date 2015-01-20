@@ -5,7 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import models.PointOfInterest;
 
@@ -67,9 +70,13 @@ public class FeedController extends Controller {
     public Result post(DoubleW mLatitude, DoubleW mLongitude) throws SQLException {
     	RequestBody body = request().body();
     	logger.info(body.asJson().get("status").asText());
+    	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		//get current date time with Date()
+		Date date = new Date();
+		java.sql.Date dateDB = new java.sql.Date(date.getTime());
     	String postId = "testPostId";
     	String userId = "";
-    	String timestamp = String.valueOf(System.currentTimeMillis());
+    	String timestamp = dateDB.toString();
     	String latitude = mLatitude.javascriptUnbind();
     	String longitude = mLongitude.javascriptUnbind();
     	String pointOfInterest = "Avant Gardeners";
