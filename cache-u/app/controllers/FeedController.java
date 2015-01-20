@@ -34,7 +34,7 @@ public class FeedController extends Controller {
 	Connection connection = null;
 	PreparedStatement statement = null;
 	
-    public static Logger.ALogger logger = Logger.of("application.controllers.GeoController");
+    public static Logger.ALogger logger = Logger.of("application.controllers.FeedController");
 	private RuntimeEnvironment env;
 
     /**
@@ -61,11 +61,31 @@ public class FeedController extends Controller {
      * This action only gets called if the user is logged in.
      *
      * @return
+     * @throws SQLException 
      */
     @SecuredAction
-    public Result post(DoubleW mLatitude, DoubleW mLongitude) {
+    public Result post(DoubleW mLatitude, DoubleW mLongitude) throws SQLException {
     	RequestBody body = request().body();
     	logger.info(body.asJson().get("status").asText());
+    	String postId = "testPostId";
+    	String userId = "";
+    	String timestamp = String.valueOf(System.currentTimeMillis());
+    	String latitude = mLatitude.toString();
+    	String longitude = mLongitude.toString();
+    	String pointOfInterest = "Avant Gardeners";
+    	String postType = "1";
+    	String anonymous = "0";
+    	statement = connection.prepareStatement("INSERT INTO Posts VALUES (" +
+				"'" + postId + "'," +
+				"'" + userId + "'," +
+				"'" + timestamp + "'," +
+				"" + latitude + "," +
+				"" + longitude + "," +
+				"'" + pointOfInterest + "'," + 
+				"" + postType + ");");
+		statement.executeUpdate();
+		statement.close();
+		connection.close();
     	
     	return ok();
     }
