@@ -70,8 +70,8 @@ public class FeedController extends Controller {
     	String postId = "testPostId";
     	String userId = "";
     	String timestamp = String.valueOf(System.currentTimeMillis());
-    	String latitude = mLatitude.toString();
-    	String longitude = mLongitude.toString();
+    	String latitude = String.valueOf(mLatitude);
+    	String longitude = String.valueOf(mLongitude);
     	String pointOfInterest = "Avant Gardeners";
     	String postType = "1";
     	String anonymous = "0";
