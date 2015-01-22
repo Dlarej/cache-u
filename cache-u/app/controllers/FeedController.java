@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import models.PointOfInterest;
 
 import com.google.gson.Gson;
@@ -104,10 +108,41 @@ public class FeedController extends Controller {
     
     /**
      * Returns list of posts in the same area. For now limit to 10.
+     * @throws SQLException 
+     * @throws JSONException 
      * 
      */
-    public Result feed(DoubleW maxId, DoubleW sinceId, DoubleW latitude, DoubleW longitude) {
-    	
-		return null;
+    public Result feed(DoubleW maxId, DoubleW sinceId, DoubleW mLatitude, DoubleW mLongitude) throws SQLException, JSONException {
+    	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    	connection = DriverManager.getConnection(DB_URL,USER,PASS);
+    	statement = connection.prepareStatement("SELECT * FROM Posts LIMIT 10;");
+		ResultSet rs = statement.executeQuery();
+		// Sort/filter posts by location. TODO: DO THIS IN SQL EVENTUALLY!!
+		JSONObject result = new JSONObject();
+		JSONArray posts = new JSONArray();
+		
+		while (rs.next()) {
+			// Use LocationUtil to determine distance
+			String postId = rs.getString("postId");
+			String userId = rs.getString("userId");
+			Date timestamp = rs.getDate("timestamp");
+			Double latitude = rs.getDouble("latitude");
+			Double longitude = rs.getDouble("longitude");
+			String poi = rs.getString("pointofinterest");
+			if (LocationUtil.distance(mLatitude.value, mLongitude.value, latitude, longitude, 'M') < 1) {
+				JSONObject post = new JSONObject();
+				post.put("postId", postId);
+				post.put("userId", userId);
+				post.put("timestamp", timestamp);
+				post.put("latitude", latitude);
+				post.put("longitude", longitude);
+				post.put("pointofinterest", poi);
+				posts.put(post);
+			}
+		}
+		result.put("result", posts);
+		statement.close();
+		connection.close();
+		return ok(result.toString());
     }
 }
