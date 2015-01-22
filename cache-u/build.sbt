@@ -16,7 +16,7 @@ libraryDependencies ++= Seq(
   cache,
   javaWs,
   "ws.securesocial" %% "securesocial" % "master-SNAPSHOT",
-  "org.json" %% "json" % "20141113"
+  "org.json" % "json" % "20141113"
 )
 
 javacOptions ++= Seq("-source", "1.6", "-target", "1.6", "-encoding", "UTF-8", "-Xlint:-options")
