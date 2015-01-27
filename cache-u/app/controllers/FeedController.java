@@ -89,16 +89,18 @@ public class FeedController extends Controller {
     	String longitude = mLongitude.javascriptUnbind();
     	String pointOfInterest = "MyHouseID";
     	String postType = "0";
+	String text = body.asJson().get("status").asText();
     	connection = DriverManager.getConnection(DB_URL,USER,PASS);
     	statement = connection.prepareStatement("INSERT INTO Posts " +
-    		    "(postId, userId, timestamp, latitude, longitude, pointofinterest, postType) VALUES (" +
+    		    "(postId, userId, timestamp, latitude, longitude, pointofinterest, postType, text) VALUES (" +
 				"'" + postId + "'," +
 				"'" + userId + "'," +
 				"'" + timestamp + "'," +
 				"" + latitude + "," +
 				"" + longitude + "," +
 				"'" + pointOfInterest + "'," + 
-				"" + postType + ");");
+				"" + postType + "," + 
+				"'" + text + "');");
 		statement.executeUpdate();
 		statement.close();
 		connection.close();
@@ -126,9 +128,10 @@ public class FeedController extends Controller {
 			String postId = rs.getString("postId");
 			String userId = rs.getString("userId");
 			Date timestamp = rs.getDate("timestamp");
-			Double latitude = rs.getDouble("latitude");
-			Double longitude = rs.getDouble("longitude");
+			Double latitude = rs.getBigDecimal("latitude").doubleValue();
+			Double longitude = rs.getBigDecimal("longitude").doubleValue();
 			String poi = rs.getString("pointofinterest");
+			String text = rs.getString("text");
 			if (LocationUtil.distance(mLatitude.value, mLongitude.value, latitude, longitude, 'M') < 1) {
 				JSONObject post = new JSONObject();
 				post.put("postId", postId);
@@ -137,6 +140,7 @@ public class FeedController extends Controller {
 				post.put("latitude", latitude);
 				post.put("longitude", longitude);
 				post.put("pointofinterest", poi);
+				post.put("text", text);
 				posts.put(post);
 			}
 		}
