@@ -64,7 +64,23 @@ public class FeedController extends Controller {
 			e.printStackTrace();
 		}
     }
-    
+   
+    @SecuredAction
+    public Result viewPost(DoubleW postId) throws SQLException {
+	String sql = "SELECT * FROM Posts WHERE postId=?";
+    	connection = DriverManager.getConnection(DB_URL,USER,PASS);
+    	statement = connection.prepareStatement(sql);
+	statement.setDouble(1, postId.value.doubleValue());
+	ResultSet rs = statement.executeQuery();
+
+	while(rs.next()) {
+            rs.get
+	}
+
+	// Construct JSON out of post details
+	return ok("Post Details");
+    }
+ 
     /**
      * This action only gets called if the user is logged in.
      *
@@ -83,15 +99,16 @@ public class FeedController extends Controller {
 		Random r = new Random();
 		r.setSeed(System.currentTimeMillis());
     	String postId = String.valueOf(r.nextInt());
-    	String userId = "10203373126632130";
+    	String userId = "10203373126632130"; //TODO: Get using fb api on client
     	String timestamp = dateFormat.format(dateDB);
     	String latitude = mLatitude.javascriptUnbind();
     	String longitude = mLongitude.javascriptUnbind();
-    	String pointOfInterest = "MyHouseID";
+    	String pointOfInterest = "MyHouseID"; // TODO: Get using selection process on client
     	String postType = "0";
     	String text = body.asJson().get("status").asText();
-    	String sql = "{INSERT INTO Posts (postId, userId, timestamp, latitude, longitude, pointofinterest, postType, text) VALUES (?,?,?,?,?,?,?,?)}";
-    	statement = connection.prepareCall(sql);
+    	String sql = "INSERT INTO Posts (postId, userId, timestamp, latitude, longitude, pointofinterest, postType, text) VALUES (?,?,?,?,?,?,?,?)";
+    	connection = DriverManager.getConnection(DB_URL,USER,PASS);
+    	statement = connection.prepareStatement(sql);
     	statement.setString(1, postId);
     	statement.setString(2, userId);
     	statement.setDate(3, dateDB);
@@ -101,21 +118,9 @@ public class FeedController extends Controller {
     	statement.setString(7, postType);
     	statement.setString(8, text);
     	
-    	/*
-    	connection = DriverManager.getConnection(DB_URL,USER,PASS);
-    	statement = connection.prepareStatement("INSERT INTO Posts " +
-    		    "(postId, userId, timestamp, latitude, longitude, pointofinterest, postType, text) VALUES (" +
-				"'" + postId + "'," +
-				"'" + userId + "'," +
-				"'" + timestamp + "'," +
-				"" + latitude + "," +
-				"" + longitude + "," +
-				"'" + pointOfInterest + "'," + 
-				"" + postType + "," + 
-				"'" + text + "');");*/
-		statement.executeUpdate();
-		statement.close();
-		connection.close();
+	statement.executeUpdate();
+	statement.close();
+	connection.close();
     	
     	return ok();
     }
