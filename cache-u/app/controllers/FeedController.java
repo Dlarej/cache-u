@@ -45,6 +45,7 @@ public class FeedController extends Controller {
     public static Logger.ALogger logger = Logger.of("application.controllers.FeedController");
 	private RuntimeEnvironment env;
 
+	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     /**
      * A constructor needed to get a hold of the environment instance.
      * This could be injected using a DI framework instead too.
@@ -66,19 +67,43 @@ public class FeedController extends Controller {
     }
    
     @SecuredAction
-    public Result viewPost(DoubleW postId) throws SQLException {
+    public Result viewPost(DoubleW postId) throws SQLException, JSONException {
 	String sql = "SELECT * FROM Posts WHERE postId=?";
     	connection = DriverManager.getConnection(DB_URL,USER,PASS);
     	statement = connection.prepareStatement(sql);
 	statement.setDouble(1, postId.value.doubleValue());
 	ResultSet rs = statement.executeQuery();
 
+	// If anonymous, don't display name
+	int anonymous = 0;
+    String userId = null;
+    Date timestamp = null;
+    String poi = null;
+    // Depending on postType, may have to retrieve additional media (i.e., photos, vid)
+    int postType = 0;
+    String text = null;
+	
 	while(rs.next()) {
-            rs.get
+		// If anonymous, don't display name
+		anonymous = rs.getInt("anonymous");
+        userId = rs.getString("userId");
+        timestamp = rs.getDate("timestamp");
+        poi = rs.getString("pointofinterest");
+        // Depending on postType, may have to retrieve additional media (i.e., photos, vid)
+        postType = rs.getInt("postType");
+        text = rs.getString("text");
 	}
 
+	// Regular simple case just involving textual media
+	JSONObject result = new JSONObject();
+	result.put("anonymous", anonymous);
+	result.put("userId", userId);
+	result.put("timestamp", timestamp);
+	result.put("pointofinterest", poi);
+	result.put("text", text);
+	
 	// Construct JSON out of post details
-	return ok("Post Details");
+	return ok(result.toString());
     }
  
     /**
@@ -91,7 +116,7 @@ public class FeedController extends Controller {
     public Result post(DoubleW mLatitude, DoubleW mLongitude) throws SQLException {
     	RequestBody body = request().body();
     	logger.info(body.asJson().get("status").asText());
-    	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    	
 		//get current date time with Date()
 		Date date = new Date();
 		dateFormat.format(date);
