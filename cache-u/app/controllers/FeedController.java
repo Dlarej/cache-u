@@ -89,7 +89,19 @@ public class FeedController extends Controller {
     	String longitude = mLongitude.javascriptUnbind();
     	String pointOfInterest = "MyHouseID";
     	String postType = "0";
-	String text = body.asJson().get("status").asText();
+    	String text = body.asJson().get("status").asText();
+    	String sql = "{INSERT INTO Posts (postId, userId, timestamp, latitude, longitude, pointofinterest, postType, text) VALUES (?,?,?,?,?,?,?,?)}";
+    	statement = connection.prepareCall(sql);
+    	statement.setString(1, postId);
+    	statement.setString(2, userId);
+    	statement.setDate(3, dateDB);
+    	statement.setDouble(4, mLatitude.value.doubleValue());
+    	statement.setDouble(5, mLongitude.value.doubleValue());
+    	statement.setString(6, pointOfInterest);
+    	statement.setString(7, postType);
+    	statement.setString(8, text);
+    	
+    	/*
     	connection = DriverManager.getConnection(DB_URL,USER,PASS);
     	statement = connection.prepareStatement("INSERT INTO Posts " +
     		    "(postId, userId, timestamp, latitude, longitude, pointofinterest, postType, text) VALUES (" +
@@ -100,7 +112,7 @@ public class FeedController extends Controller {
 				"" + longitude + "," +
 				"'" + pointOfInterest + "'," + 
 				"" + postType + "," + 
-				"'" + text + "');");
+				"'" + text + "');");*/
 		statement.executeUpdate();
 		statement.close();
 		connection.close();
