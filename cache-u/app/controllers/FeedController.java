@@ -10,6 +10,22 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+import java.util.*;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+
+import java.io.IOException;
+import java.util.Arrays;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +41,8 @@ import com.restfb.types.User;
 import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Http.RequestBody;
+import play.mvc.Http.MultipartFormData;
+import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Result;
 import securesocial.core.RuntimeEnvironment;
 import securesocial.core.java.SecureSocial;
@@ -32,6 +50,8 @@ import securesocial.core.java.SecuredAction;
 import service.DemoUser;
 import utilities.DoubleW;
 import utilities.LocationUtil;
+
+
 
 public class FeedController extends Controller {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -113,10 +133,39 @@ public class FeedController extends Controller {
      * @throws SQLException 
      */
     @SecuredAction
-    public Result post(DoubleW mLatitude, DoubleW mLongitude) throws SQLException {
+    public Result post(DoubleW mLatitude, DoubleW mLongitude) throws SQLException, IOException {
     	RequestBody body = request().body();
-    	logger.info(body.asJson().get("status").asText());
-    	
+		System.out.println(body.asText());
+		MultipartFormData body2 = request().body().asMultipartFormData();
+    	FilePart picture = body2.getFile("image");
+    	if (picture != null) {
+    	    System.out.println("File uploaded");
+
+			File file1 = picture.getFile();
+
+			InputStream isFile1 = new FileInputStream(file1);
+
+			byte[] byteFile1 = IOUtils.toByteArray(isFile1);
+
+			isFile1.close();
+
+			System.out.println(Arrays.toString(byteFile1));
+
+			InputStream in = new ByteArrayInputStream(byteFile1);
+			BufferedImage bImageFromConvert = ImageIO.read(in);
+
+			BufferedImage bi = bImageFromConvert;
+			File outputfile = new File("/tmp/saved.jpg");
+			try {
+				ImageIO.write(bi, "jpg", outputfile);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+    	} else {
+			System.out.println("File not uploaded");
+    	}
+
 		//get current date time with Date()
 		Date date = new Date();
 		dateFormat.format(date);
@@ -130,7 +179,7 @@ public class FeedController extends Controller {
     	String longitude = mLongitude.javascriptUnbind();
     	String pointOfInterest = "MyHouseID"; // TODO: Get using selection process on client
     	String postType = "0";
-    	String text = body.asJson().get("status").asText();
+    	String text = body.asMultipartFormData().asFormUrlEncoded().get("text")[0];
     	String sql = "INSERT INTO Posts (postId, userId, timestamp, latitude, longitude, pointofinterest, postType, text) VALUES (?,?,?,?,?,?,?,?)";
     	connection = DriverManager.getConnection(DB_URL,USER,PASS);
     	statement = connection.prepareStatement(sql);
@@ -143,9 +192,9 @@ public class FeedController extends Controller {
     	statement.setString(7, postType);
     	statement.setString(8, text);
     	
-	statement.executeUpdate();
-	statement.close();
-	connection.close();
+		statement.executeUpdate();
+		statement.close();
+		connection.close();
     	
     	return ok();
     }

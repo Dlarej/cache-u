@@ -1,0 +1,524 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 6397952 bytes for committing reserved memory.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   In 32 bit mode, the process size limit was hit
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Use 64 bit Java on a 64 bit OS
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_linux.cpp:2671), pid=9693, tid=3832757056
+#
+# JRE version: Java(TM) SE Runtime Environment (8.0_25-b17) (build 1.8.0_25-b17)
+# Java VM: Java HotSpot(TM) Client VM (25.25-b02 mixed mode linux-x86 )
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0xf695a800):  VMThread [stack: 0xe46b3000,0xe4734000] [id=9698]
+
+Stack: [0xe46b3000,0xe4734000],  sp=0xe4732820,  free space=510k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0x583cf9]  VMError::report_and_die()+0x179
+V  [libjvm.so+0x1f5bd5]  report_vm_out_of_memory(char const*, int, unsigned int, VMErrorType, char const*)+0x55
+V  [libjvm.so+0x470016]  os::Linux::commit_memory_impl(char*, unsigned int, bool)+0xe6
+V  [libjvm.so+0x470438]  os::pd_commit_memory(char*, unsigned int, unsigned int, bool)+0x28
+V  [libjvm.so+0x469e0c]  os::commit_memory(char*, unsigned int, unsigned int, bool)+0x2c
+V  [libjvm.so+0x57ff2c]  VirtualSpace::expand_by(unsigned int, bool)+0x20c
+V  [libjvm.so+0x2779eb]  OneContigSpaceCardGeneration::grow_by(unsigned int)+0x1b
+V  [libjvm.so+0x277d0b]  CardGeneration::expand(unsigned int, unsigned int)+0x5b
+V  [libjvm.so+0x277d8a]  OneContigSpaceCardGeneration::expand(unsigned int, unsigned int)+0x2a
+V  [libjvm.so+0x2783c5]  CardGeneration::compute_new_size()+0x1d5
+V  [libjvm.so+0x26c421]  GenCollectedHeap::do_collection(bool, bool, unsigned int, bool, int)+0x671
+V  [libjvm.so+0x1a6b1f]  GenCollectorPolicy::satisfy_failed_allocation(unsigned int, bool)+0x10f
+V  [libjvm.so+0x584cb4]  VM_GenCollectForAllocation::doit()+0x74
+V  [libjvm.so+0x58df37]  VM_Operation::evaluate()+0x47
+V  [libjvm.so+0x58c003]  VMThread::evaluate_operation(VM_Operation*)+0xb3
+V  [libjvm.so+0x58c3a0]  VMThread::loop()+0x1b0
+V  [libjvm.so+0x58c805]  VMThread::run()+0x85
+V  [libjvm.so+0x4729d9]  java_start(Thread*)+0x119
+C  [libpthread.so.0+0x6d1d]  start_thread+0xcd
+
+VM_Operation (0xf6b3d694): GenCollectForAllocation, mode: safepoint, requested by thread 0xf6906800
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0xf6981800 JavaThread "Service Thread" daemon [_thread_blocked, id=9703, stack(0xe41dd000,0xe422e000)]
+  0xf697e800 JavaThread "C1 CompilerThread0" daemon [_thread_blocked, id=9702, stack(0xe422e000,0xe42af000)]
+  0xf697d000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=9701, stack(0xe42af000,0xe4300000)]
+  0xf6960400 JavaThread "Finalizer" daemon [_thread_blocked, id=9700, stack(0xe4611000,0xe4662000)]
+  0xf695ec00 JavaThread "Reference Handler" daemon [_thread_blocked, id=9699, stack(0xe4662000,0xe46b3000)]
+  0xf6906800 JavaThread "main" [_thread_blocked, id=9697, stack(0xf6aee000,0xf6b3f000)]
+
+Other Threads:
+=>0xf695a800 VMThread [stack: 0xe46b3000,0xe4734000] [id=9698]
+  0xf6983800 WatcherThread [stack: 0xe415c000,0xe41dd000] [id=9704]
+
+VM state:at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0xf6904a08] Threads_lock - owner thread: 0xf695a800
+[0xf6904e18] Heap_lock - owner thread: 0xf6906800
+
+Heap:
+ def new generation   total 3584K, used 211K [0xe4e00000, 0xe51e0000, 0xea150000)
+  eden space 3200K,   6% used [0xe4e00000, 0xe4e34f00, 0xe5120000)
+  from space 384K,   0% used [0xe5180000, 0xe5180000, 0xe51e0000)
+  to   space 384K,   0% used [0xe5120000, 0xe5120000, 0xe5180000)
+ tenured generation   total 9368K, used 9367K [0xea150000, 0xeaa76000, 0xf4800000)
+   the space 9368K,  99% used [0xea150000, 0xeaa75fe8, 0xeaa76000, 0xeaa76000)
+ Metaspace       used 4451K, capacity 4484K, committed 4504K, reserved 5424K
+
+Card table byte_map: [0xf4882000,0xf4900000] byte_map_base: 0xf415b000
+
+Polling page: 0xf77b6000
+
+CodeCache: size=32768Kb used=1135Kb max_used=1140Kb free=31632Kb
+ bounds [0xf4900000, 0xf4a20000, 0xf6900000]
+ total_blobs=432 nmethods=286 adapters=78
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 1.556 Thread 0xf697e800  285             com.sun.tools.javac.file.RelativePath$RelativeDirectory::basename (44 bytes)
+Event: 1.557 Thread 0xf697e800 nmethod 285 0xf4a1cdc8 code [0xf4a1cee0, 0xf4a1cfd4]
+Event: 1.625 Thread 0xf697e800  286             com.sun.tools.javac.util.ListBuffer::append (66 bytes)
+Event: 1.740 Thread 0xf697e800 nmethod 286 0xf4a1d0c8 code [0xf4a1d1e0, 0xf4a1d35c]
+Event: 1.806 Thread 0xf697e800  287             java.util.ComparableTimSort::mergeCollapse (101 bytes)
+Event: 1.879 Thread 0xf697e800 nmethod 287 0xf49a6888 code [0xf49a69b0, 0xf49a6b24]
+Event: 1.887 Thread 0xf697e800  288             java.io.File::hashCode (8 bytes)
+Event: 1.890 Thread 0xf697e800 nmethod 288 0xf49a6648 code [0xf49a6750, 0xf49a67ec]
+Event: 1.890 Thread 0xf697e800  289             java.io.UnixFileSystem::hashCode (11 bytes)
+Event: 1.890 Thread 0xf697e800 nmethod 289 0xf49a63c8 code [0xf49a64d0, 0xf49a657c]
+
+GC Heap History (10 events):
+Event: 1.243 GC heap after
+Heap after GC invocations=9 (full 0):
+ def new generation   total 2432K, used 256K [0xe4e00000, 0xe50a0000, 0xea150000)
+  eden space 2176K,   0% used [0xe4e00000, 0xe4e00000, 0xe5020000)
+  from space 256K, 100% used [0xe5060000, 0xe50a0000, 0xe50a0000)
+  to   space 256K,   0% used [0xe5020000, 0xe5020000, 0xe5060000)
+ tenured generation   total 5504K, used 2585K [0xea150000, 0xea6b0000, 0xf4800000)
+   the space 5504K,  46% used [0xea150000, 0xea3d66a8, 0xea3d6800, 0xea6b0000)
+ Metaspace       used 4448K, capacity 4484K, committed 4504K, reserved 5424K
+}
+Event: 1.252 GC heap before
+{Heap before GC invocations=9 (full 0):
+ def new generation   total 2432K, used 2432K [0xe4e00000, 0xe50a0000, 0xea150000)
+  eden space 2176K, 100% used [0xe4e00000, 0xe5020000, 0xe5020000)
+  from space 256K, 100% used [0xe5060000, 0xe50a0000, 0xe50a0000)
+  to   space 256K,   0% used [0xe5020000, 0xe5020000, 0xe5060000)
+ tenured generation   total 5504K, used 2585K [0xea150000, 0xea6b0000, 0xf4800000)
+   the space 5504K,  46% used [0xea150000, 0xea3d66a8, 0xea3d6800, 0xea6b0000)
+ Metaspace       used 4448K, capacity 4484K, committed 4504K, reserved 5424K
+Event: 1.254 GC heap after
+Heap after GC invocations=10 (full 0):
+ def new generation   total 2432K, used 256K [0xe4e00000, 0xe50a0000, 0xea150000)
+  eden space 2176K,   0% used [0xe4e00000, 0xe4e00000, 0xe5020000)
+  from space 256K, 100% used [0xe5020000, 0xe5060000, 0xe5060000)
+  to   space 256K,   0% used [0xe5060000, 0xe5060000, 0xe50a0000)
+ tenured generation   total 5504K, used 4699K [0xea150000, 0xea6b0000, 0xf4800000)
+   the space 5504K,  85% used [0xea150000, 0xea5e6ee8, 0xea5e7000, 0xea6b0000)
+ Metaspace       used 4448K, capacity 4484K, committed 4504K, reserved 5424K
+}
+Event: 1.343 GC heap before
+{Heap before GC invocations=10 (full 0):
+ def new generation   total 2432K, used 2432K [0xe4e00000, 0xe50a0000, 0xea150000)
+  eden space 2176K, 100% used [0xe4e00000, 0xe5020000, 0xe5020000)
+  from space 256K, 100% used [0xe5020000, 0xe5060000, 0xe5060000)
+  to   space 256K,   0% used [0xe5060000, 0xe5060000, 0xe50a0000)
+ tenured generation   total 5504K, used 4699K [0xea150000, 0xea6b0000, 0xf4800000)
+   the space 5504K,  85% used [0xea150000, 0xea5e6ee8, 0xea5e7000, 0xea6b0000)
+ Metaspace       used 4450K, capacity 4484K, committed 4504K, reserved 5424K
+Event: 1.387 GC heap after
+Heap after GC invocations=11 (full 1):
+ def new generation   total 3584K, used 0K [0xe4e00000, 0xe51e0000, 0xea150000)
+  eden space 3200K,   0% used [0xe4e00000, 0xe4e00000, 0xe5120000)
+  from space 384K,   0% used [0xe5120000, 0xe5120000, 0xe5180000)
+  to   space 384K,   0% used [0xe5180000, 0xe5180000, 0xe51e0000)
+ tenured generation   total 7832K, used 4698K [0xea150000, 0xea8f6000, 0xf4800000)
+   the space 7832K,  59% used [0xea150000, 0xea5e6bb0, 0xea5e6c00, 0xea8f6000)
+ Metaspace       used 4450K, capacity 4484K, committed 4504K, reserved 5424K
+}
+Event: 1.696 GC heap before
+{Heap before GC invocations=11 (full 1):
+ def new generation   total 3584K, used 3200K [0xe4e00000, 0xe51e0000, 0xea150000)
+  eden space 3200K, 100% used [0xe4e00000, 0xe5120000, 0xe5120000)
+  from space 384K,   0% used [0xe5120000, 0xe5120000, 0xe5180000)
+  to   space 384K,   0% used [0xe5180000, 0xe5180000, 0xe51e0000)
+ tenured generation   total 7832K, used 4698K [0xea150000, 0xea8f6000, 0xf4800000)
+   the space 7832K,  59% used [0xea150000, 0xea5e6bb0, 0xea5e6c00, 0xea8f6000)
+ Metaspace       used 4450K, capacity 4484K, committed 4504K, reserved 5424K
+Event: 1.721 GC heap after
+Heap after GC invocations=12 (full 1):
+ def new generation   total 3584K, used 383K [0xe4e00000, 0xe51e0000, 0xea150000)
+  eden space 3200K,   0% used [0xe4e00000, 0xe4e00000, 0xe5120000)
+  from space 384K,  99% used [0xe5180000, 0xe51dfff8, 0xe51e0000)
+  to   space 384K,   0% used [0xe5120000, 0xe5120000, 0xe5180000)
+ tenured generation   total 7832K, used 5925K [0xea150000, 0xea8f6000, 0xf4800000)
+   the space 7832K,  75% used [0xea150000, 0xea719490, 0xea719600, 0xea8f6000)
+ Metaspace       used 4450K, capacity 4484K, committed 4504K, reserved 5424K
+}
+Event: 1.942 GC heap before
+{Heap before GC invocations=12 (full 1):
+ def new generation   total 3584K, used 3583K [0xe4e00000, 0xe51e0000, 0xea150000)
+  eden space 3200K, 100% used [0xe4e00000, 0xe5120000, 0xe5120000)
+  from space 384K,  99% used [0xe5180000, 0xe51dfff8, 0xe51e0000)
+  to   space 384K,   0% used [0xe5120000, 0xe5120000, 0xe5180000)
+ tenured generation   total 7832K, used 5925K [0xea150000, 0xea8f6000, 0xf4800000)
+   the space 7832K,  75% used [0xea150000, 0xea719490, 0xea719600, 0xea8f6000)
+ Metaspace       used 4451K, capacity 4484K, committed 4504K, reserved 5424K
+Event: 1.965 GC heap after
+Heap after GC invocations=13 (full 1):
+ def new generation   total 3584K, used 384K [0xe4e00000, 0xe51e0000, 0xea150000)
+  eden space 3200K,   0% used [0xe4e00000, 0xe4e00000, 0xe5120000)
+  from space 384K, 100% used [0xe5120000, 0xe5180000, 0xe5180000)
+  to   space 384K,   0% used [0xe5180000, 0xe5180000, 0xe51e0000)
+ tenured generation   total 7832K, used 7590K [0xea150000, 0xea8f6000, 0xf4800000)
+   the space 7832K,  96% used [0xea150000, 0xea8b98d8, 0xea8b9a00, 0xea8f6000)
+ Metaspace       used 4451K, capacity 4484K, committed 4504K, reserved 5424K
+}
+Event: 2.055 GC heap before
+{Heap before GC invocations=13 (full 1):
+ def new generation   total 3584K, used 3572K [0xe4e00000, 0xe51e0000, 0xea150000)
+  eden space 3200K,  99% used [0xe4e00000, 0xe511d370, 0xe5120000)
+  from space 384K, 100% used [0xe5120000, 0xe5180000, 0xe5180000)
+  to   space 384K,   0% used [0xe5180000, 0xe5180000, 0xe51e0000)
+ tenured generation   total 7832K, used 7590K [0xea150000, 0xea8f6000, 0xf4800000)
+   the space 7832K,  96% used [0xea150000, 0xea8b98d8, 0xea8b9a00, 0xea8f6000)
+ Metaspace       used 4451K, capacity 4484K, committed 4504K, reserved 5424K
+
+Deoptimization events (0 events):
+No events
+
+Internal exceptions (10 events):
+Event: 1.074 Thread 0xf6906800 Exception <a 'java/security/PrivilegedActionException'> (0xe4e94608) thrown at [/HUDSON/workspace/8-2-build-linux-i586/jdk8u25/1514/hotspot/src/share/vm/prims/jvm.cpp, line 1312]
+Event: 1.079 Thread 0xf6906800 Exception <a 'java/security/PrivilegedActionException'> (0xe4e981b8) thrown at [/HUDSON/workspace/8-2-build-linux-i586/jdk8u25/1514/hotspot/src/share/vm/prims/jvm.cpp, line 1312]
+Event: 1.181 Thread 0xf6906800 Exception <a 'java/security/PrivilegedActionException'> (0xe4fb5ab8) thrown at [/HUDSON/workspace/8-2-build-linux-i586/jdk8u25/1514/hotspot/src/share/vm/prims/jvm.cpp, line 1312]
+Event: 1.184 Thread 0xf6906800 Exception <a 'java/security/PrivilegedActionException'> (0xe4fb8038) thrown at [/HUDSON/workspace/8-2-build-linux-i586/jdk8u25/1514/hotspot/src/share/vm/prims/jvm.cpp, line 1312]
+Event: 1.218 Thread 0xf6906800 Exception <a 'java/security/PrivilegedActionException'> (0xe4fbcd98) thrown at [/HUDSON/workspace/8-2-build-linux-i586/jdk8u25/1514/hotspot/src/share/vm/prims/jvm.cpp, line 1312]
+Event: 1.222 Thread 0xf6906800 Exception <a 'java/security/PrivilegedActionException'> (0xe4fc8f38) thrown at [/HUDSON/workspace/8-2-build-linux-i586/jdk8u25/1514/hotspot/src/share/vm/prims/jvm.cpp, line 1312]
+Event: 1.223 Thread 0xf6906800 Exception <a 'java/security/PrivilegedActionException'> (0xe4fcd190) thrown at [/HUDSON/workspace/8-2-build-linux-i586/jdk8u25/1514/hotspot/src/share/vm/prims/jvm.cpp, line 1312]
+Event: 1.322 Thread 0xf6906800 Exception <a 'java/io/FileNotFoundException'> (0xe4fdb4f0) thrown at [/HUDSON/workspace/8-2-build-linux-i586/jdk8u25/1514/hotspot/src/share/vm/prims/jni.cpp, line 716]
+Event: 1.325 Thread 0xf6906800 Exception <a 'java/security/PrivilegedActionException'> (0xe4fdbf28) thrown at [/HUDSON/workspace/8-2-build-linux-i586/jdk8u25/1514/hotspot/src/share/vm/prims/jvm.cpp, line 1312]
+Event: 1.399 Thread 0xf6906800 Exception <a 'java/io/FileNotFoundException'> (0xe4e01d48) thrown at [/HUDSON/workspace/8-2-build-linux-i586/jdk8u25/1514/hotspot/src/share/vm/prims/jni.cpp, line 716]
+
+Events (10 events):
+Event: 1.342 Executing VM operation: GenCollectForAllocation
+Event: 1.390 Executing VM operation: GenCollectForAllocation done
+Event: 1.550 Thread 0xf697e800 flushing nmethod 0xf49d92c8
+Event: 1.553 Thread 0xf697e800 flushing nmethod 0xf49d95c8
+Event: 1.692 Executing VM operation: GenCollectForAllocation
+Event: 1.742 Thread 0xf697e800 flushing nmethod 0xf49a4e88
+Event: 1.743 Executing VM operation: GenCollectForAllocation done
+Event: 1.939 Executing VM operation: GenCollectForAllocation
+Event: 1.976 Executing VM operation: GenCollectForAllocation done
+Event: 2.053 Executing VM operation: GenCollectForAllocation
+
+
+Dynamic libraries:
+08048000-08049000 r-xp 00000000 ca:01 412781                             /usr/bin/jdk1.8.0_25/bin/javac
+08049000-0804a000 rw-p 00000000 ca:01 412781                             /usr/bin/jdk1.8.0_25/bin/javac
+08690000-0889a000 rw-p 00000000 00:00 0                                  [heap]
+e3700000-e3720000 rw-p 00000000 00:00 0 
+e3720000-e3800000 ---p 00000000 00:00 0 
+e3800000-e38bd000 rw-p 00000000 00:00 0 
+e38bd000-e3900000 ---p 00000000 00:00 0 
+e39d3000-e39d4000 r--s 0000f000 ca:01 267868                             /root/.ivy2/cache/org.json/json/jars/json-20141113.jar
+e39d4000-e39d5000 r--s 00004000 ca:01 267951                             /root/.ivy2/cache/org.mindrot/jbcrypt/jars/jbcrypt-0.3m.jar
+e39d5000-e39d7000 r--s 0000f000 ca:01 267955                             /root/.ivy2/cache/javax.activation/activation/jars/activation-1.1.1.jar
+e39d7000-e39df000 r--s 00075000 ca:01 267953                             /root/.ivy2/cache/javax.mail/mail/jars/mail-1.4.5.jar
+e39df000-e39e1000 r--s 0000b000 ca:01 142956                             /root/.ivy2/cache/org.apache.commons/commons-email/jars/commons-email-1.3.2.jar
+e39e1000-e39e3000 r--s 0000b000 ca:01 267949                             /root/.ivy2/cache/com.typesafe.play.plugins/play-plugins-mailer_2.11/jars/play-plugins-mailer_2.11-2.3.0.jar
+e39e3000-e39e5000 r--s 00002000 ca:01 267947                             /root/.ivy2/cache/com.typesafe.play.plugins/play-plugins-util_2.11/jars/play-plugins-util_2.11-2.3.0.jar
+e39e5000-e3a00000 r--s 0010a000 ca:01 263418                             /root/.ivy2/cache/ws.securesocial/securesocial_2.11/jars/securesocial_2.11-master-SNAPSHOT.jar
+e3a00000-e3aff000 rw-p 00000000 00:00 0 
+e3aff000-e3b00000 ---p 00000000 00:00 0 
+e3b00000-e3b06000 r--s 00033000 ca:01 267945                             /root/.ivy2/cache/com.typesafe.play/filters-helpers_2.11/jars/filters-helpers_2.11-2.3.7.jar
+e3b06000-e3b08000 r--s 0000d000 ca:01 138885                             /root/.ivy2/cache/commons-logging/commons-logging/jars/commons-logging-1.1.1.jar
+e3b08000-e3b10000 r--s 00040000 ca:01 142954                             /root/.ivy2/cache/org.apache.httpcomponents/httpclient/jars/httpclient-4.0.1.jar
+e3b10000-e3b15000 r--s 00026000 ca:01 142953                             /root/.ivy2/cache/org.apache.httpcomponents/httpcore/jars/httpcore-4.0.1.jar
+e3b15000-e3b16000 r--s 00001000 ca:01 267943                             /root/.ivy2/cache/oauth.signpost/signpost-commonshttp4/jars/signpost-commonshttp4-1.2.1.2.jar
+e3b16000-e3b19000 r--s 00009000 ca:01 267941                             /root/.ivy2/cache/oauth.signpost/signpost-core/jars/signpost-core-1.2.1.2.jar
+e3b19000-e3b23000 r--s 00078000 ca:01 267939                             /root/.ivy2/cache/com.ning/async-http-client/jars/async-http-client-1.8.14.jar
+e3b23000-e3b2f000 r--s 00087000 ca:01 267937                             /root/.ivy2/cache/com.typesafe.play/play-ws_2.11/jars/play-ws_2.11-2.3.7.jar
+e3b2f000-e3b30000 r--s 00006000 ca:01 267865                             /root/.ivy2/cache/com.typesafe.play/play-java-ws_2.11/jars/play-java-ws_2.11-2.3.7.jar
+e3b30000-e3b4b000 r--s 0012e000 ca:01 267935                             /root/.ivy2/cache/net.sf.ehcache/ehcache-core/jars/ehcache-core-2.6.8.jar
+e3b4b000-e3b4d000 r--s 00009000 ca:01 267863                             /root/.ivy2/cache/com.typesafe.play/play-cache_2.11/jars/play-cache_2.11-2.3.7.jar
+e3b4d000-e3b52000 r--s 00015000 ca:01 267933                             /root/.ivy2/cache/org.hibernate.javax.persistence/hibernate-jpa-2.0-api/jars/hibernate-jpa-2.0-api-1.0.1.Final.jar
+e3b52000-e3b55000 r--s 0002a000 ca:01 267089                             /root/.ivy2/cache/org.avaje.ebeanorm/avaje-ebeanorm-agent/jars/avaje-ebeanorm-agent-3.2.2.jar
+e3b55000-e3b72000 r--s 00168000 ca:01 267931                             /root/.ivy2/cache/org.avaje.ebeanorm/avaje-ebeanorm/jars/avaje-ebeanorm-3.3.4.jar
+e3b72000-e3b74000 r--s 00002000 ca:01 267861                             /root/.ivy2/cache/com.typesafe.play/play-java-ebean_2.11/jars/play-java-ebean_2.11-2.3.7.jar
+e3b74000-e3b79000 r--s 0002d000 ca:01 267929                             /root/.ivy2/cache/tyrex/tyrex/jars/tyrex-1.0.1.jar
+e3b79000-e3b86000 r--s 00183000 ca:01 267091                             /root/.ivy2/cache/com.h2database/h2/jars/h2-1.3.175.jar
+e3b86000-e3b89000 r--s 00019000 ca:01 267927                             /root/.ivy2/cache/com.jolbox/bonecp/bundles/bonecp-0.8.0.RELEASE.jar
+e3b89000-e3b8f000 r--s 0002b000 ca:01 267925                             /root/.ivy2/cache/com.typesafe.play/play-jdbc_2.11/jars/play-jdbc_2.11-2.3.7.jar
+e3b8f000-e3b93000 r--s 00038000 ca:01 267917                             /root/.ivy2/cache/org.apache.tomcat/tomcat-servlet-api/jars/tomcat-servlet-api-8.0.5.jar
+e3b93000-e3b96000 r--s 00006000 ca:01 267915                             /root/.ivy2/cache/com.google.code.findbugs/jsr305/jars/jsr305-2.0.3.jar
+e3b96000-e3b9b000 r--s 00048000 ca:01 267923                             /root/.ivy2/cache/dom4j/dom4j/jars/dom4j-1.6.1.jar
+e3b9b000-e3bc6000 r--s 001f5000 ca:01 267087                             /root/.ivy2/cache/com.google.guava/guava/bundles/guava-16.0.1.jar
+e3bc6000-e3bc9000 r--s 00017000 ca:01 267913                             /root/.ivy2/cache/org.reflections/reflections/jars/reflections-0.9.8.jar
+e3bc9000-e3bd5000 r--s 00098000 ca:01 267911                             /root/.ivy2/cache/org.springframework/spring-beans/jars/spring-beans-4.0.3.RELEASE.jar
+e3bd5000-e3be9000 r--s 000da000 ca:01 267909                             /root/.ivy2/cache/org.springframework/spring-core/jars/spring-core-4.0.3.RELEASE.jar
+e3be9000-e3c00000 r--s 000d8000 ca:01 267907                             /root/.ivy2/cache/org.springframework/spring-context/jars/spring-context-4.0.3.RELEASE.jar
+e3c00000-e3d00000 rw-p 00000000 00:00 0 
+e3d00000-e3e00000 rw-p 00000000 00:00 0 
+e3e00000-e3e01000 r--s 00000000 ca:01 267859                             /root/.ivy2/cache/com.typesafe.play/play-java-jdbc_2.11/jars/play-java-jdbc_2.11-2.3.7.jar
+e3e01000-e3e03000 r--s 0000f000 ca:01 267905                             /root/.ivy2/cache/org.jboss.logging/jboss-logging/jars/jboss-logging-3.2.0.Final.jar
+e3e03000-e3e05000 r--s 0000d000 ca:01 267921                             /root/.ivy2/cache/com.fasterxml/classmate/bundles/classmate-1.0.0.jar
+e3e05000-e3e09000 r--s 0000c000 ca:01 267919                             /root/.ivy2/cache/javax.validation/validation-api/jars/validation-api-1.1.0.Final.jar
+e3e09000-e3e16000 r--s 00080000 ca:01 267903                             /root/.ivy2/cache/org.hibernate/hibernate-validator/jars/hibernate-validator-5.0.3.Final.jar
+e3e16000-e3e1c000 r--s 0003d000 ca:01 267901                             /root/.ivy2/cache/org.yaml/snakeyaml/bundles/snakeyaml-1.13.jar
+e3e1c000-e3e1f000 r--s 00012000 ca:01 267857                             /root/.ivy2/cache/com.typesafe.play/play-java_2.11/jars/play-java_2.11-2.3.7.jar
+e3e1f000-e3e20000 r--s 00003000 ca:01 267895                             /root/.ivy2/cache/javax.transaction/jta/jars/jta-1.1.jar
+e3e20000-e3e29000 r--s 0002d000 ca:01 267265                             /root/.ivy2/cache/xml-apis/xml-apis/jars/xml-apis-1.4.01.jar
+e3e29000-e3e42000 r--s 00135000 ca:01 267255                             /root/.ivy2/cache/xerces/xercesImpl/jars/xercesImpl-2.11.0.jar
+e3e42000-e3e49000 r--s 0003a000 ca:01 139332                             /root/.ivy2/cache/commons-codec/commons-codec/jars/commons-codec-1.9.jar
+e3e49000-e3e6e000 r--s 00242000 ca:01 142950                             /root/.ivy2/cache/com.typesafe.akka/akka-actor_2.11/jars/akka-actor_2.11-2.3.4.jar
+e3e6e000-e3e74000 r--s 0003d000 ca:01 267884                             /root/.ivy2/cache/ch.qos.logback/logback-classic/jars/logback-classic-1.1.1.jar
+e3e74000-e3e7e000 r--s 0005f000 ca:01 267882                             /root/.ivy2/cache/ch.qos.logback/logback-core/jars/logback-core-1.1.1.jar
+e3e7e000-e3e80000 r--s 00003000 ca:01 267880                             /root/.ivy2/cache/org.slf4j/jcl-over-slf4j/jars/jcl-over-slf4j-1.7.6.jar
+e3e80000-e3e99000 r--s 00125000 ca:01 267873                             /root/.ivy2/cache/io.netty/netty/bundles/netty-3.9.3.Final.jar
+e3e99000-e3ea4000 r--s 0005c000 ca:01 138857                             /root/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.11/bundles/scala-parser-combinators_2.11-1.0.1.jar
+e3ea4000-e3eef000 r--s 003e1000 ca:01 404325                             /root/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.11.1.jar
+e3eef000-e3f00000 r--s 000cf000 ca:01 267893                             /root/.ivy2/cache/com.fasterxml.jackson.core/jackson-databind/bundles/jackson-databind-2.3.2.jar
+e3f00000-e3ffe000 rw-p 00000000 00:00 0 
+e3ffe000-e4000000 ---p 00000000 00:00 0 
+e4000000-e4001000 r--s 00003000 ca:01 142952                             /root/.ivy2/cache/com.typesafe.akka/akka-slf4j_2.11/jars/akka-slf4j_2.11-2.3.4.jar
+e4001000-e4002000 r--s 00001000 ca:01 267878                             /root/.ivy2/cache/org.slf4j/jul-to-slf4j/jars/jul-to-slf4j-1.7.6.jar
+e4002000-e4004000 r--s 00006000 ca:01 267876                             /root/.ivy2/cache/org.slf4j/slf4j-api/jars/slf4j-api-1.7.6.jar
+e4004000-e4007000 r--s 0002e000 ca:01 267891                             /root/.ivy2/cache/com.fasterxml.jackson.core/jackson-core/bundles/jackson-core-2.3.2.jar
+e4007000-e4009000 r--s 00007000 ca:01 267892                             /root/.ivy2/cache/com.fasterxml.jackson.core/jackson-annotations/bundles/jackson-annotations-2.3.2.jar
+e4009000-e4018000 r--s 0007f000 ca:01 267888                             /root/.ivy2/cache/joda-time/joda-time/jars/joda-time-2.3.jar
+e4018000-e4021000 r--s 00053000 ca:01 267897                             /root/.ivy2/cache/com.typesafe.play/play-functional_2.11/jars/play-functional_2.11-2.3.7.jar
+e4021000-e402c000 r--s 0008f000 ca:01 267872                             /root/.ivy2/cache/com.typesafe.play/play-json_2.11/jars/play-json_2.11-2.3.7.jar
+e402c000-e403e000 r--s 000a1000 ca:01 267870                             /root/.ivy2/cache/com.typesafe.play/play-iteratees_2.11/jars/play-iteratees_2.11-2.3.7.jar
+e403e000-e408a000 r--s 0034d000 ca:01 267855                             /root/.ivy2/cache/com.typesafe.play/play_2.11/jars/play_2.11-2.3.7.jar
+e408a000-e40e3000 r--s 004f0000 ca:01 395225                             /root/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.1.jar
+e40e3000-e415c000 r--s 010df000 ca:01 412765                             /usr/bin/jdk1.8.0_25/lib/tools.jar
+e415c000-e415d000 ---p 00000000 00:00 0 
+e415d000-e41dd000 rw-p 00000000 00:00 0                                  [stack:9704]
+e41dd000-e41e0000 ---p 00000000 00:00 0 
+e41e0000-e422e000 rw-p 00000000 00:00 0                                  [stack:9703]
+e422e000-e4231000 ---p 00000000 00:00 0 
+e4231000-e42af000 rw-p 00000000 00:00 0                                  [stack:9702]
+e42af000-e42b2000 ---p 00000000 00:00 0 
+e42b2000-e4300000 rw-p 00000000 00:00 0                                  [stack:9701]
+e4300000-e4500000 r--p 00000000 ca:01 412879                             /usr/lib/locale/locale-archive
+e4500000-e458e000 rw-p 00000000 00:00 0 
+e458e000-e4600000 ---p 00000000 00:00 0 
+e4600000-e4604000 r--s 00015000 ca:01 267890                             /root/.ivy2/cache/org.joda/joda-convert/jars/joda-convert-1.6.jar
+e4604000-e4608000 r--s 00032000 ca:01 138883                             /root/.ivy2/cache/com.typesafe/config/bundles/config-1.2.1.jar
+e4608000-e4611000 r--s 00091000 ca:01 267886                             /root/.ivy2/cache/org.scala-stm/scala-stm_2.11/jars/scala-stm_2.11-0.7.jar
+e4611000-e4614000 ---p 00000000 00:00 0 
+e4614000-e4662000 rw-p 00000000 00:00 0                                  [stack:9700]
+e4662000-e4665000 ---p 00000000 00:00 0 
+e4665000-e46b3000 rw-p 00000000 00:00 0                                  [stack:9699]
+e46b3000-e46b4000 ---p 00000000 00:00 0 
+e46b4000-e4783000 rw-p 00000000 00:00 0                                  [stack:9698]
+e4783000-e4959000 r--s 03caa000 ca:01 411425                             /usr/bin/jdk1.8.0_25/jre/lib/rt.jar
+e4959000-e4dfa000 rw-p 00000000 00:00 0 
+e4dfa000-e4e00000 ---p 00000000 00:00 0 
+e4e00000-e51e0000 rw-p 00000000 00:00 0 
+e51e0000-ea150000 ---p 00000000 00:00 0 
+ea150000-eaa76000 rw-p 00000000 00:00 0 
+eaf91000-eb090000 rw-p 00000000 00:00 0 
+eb090000-f4800000 ---p 00000000 00:00 0 
+f4800000-f4801000 r--s 00001000 ca:01 267875                             /root/.ivy2/cache/com.typesafe.netty/netty-http-pipelining/jars/netty-http-pipelining-1.1.2.jar
+f4801000-f4802000 r--s 00001000 ca:01 267899                             /root/.ivy2/cache/com.typesafe.play/play-datacommons_2.11/jars/play-datacommons_2.11-2.3.7.jar
+f4802000-f480c000 r--s 000a5000 ca:01 267093                             /root/.ivy2/cache/org.javassist/javassist/bundles/javassist-3.18.2-GA.jar
+f480c000-f480e000 r--s 00000000 ca:01 267077                             /root/.ivy2/cache/com.typesafe.play/play-exceptions/jars/play-exceptions-2.3.7.jar
+f480e000-f480f000 r--s 00002000 ca:01 267075                             /root/.ivy2/cache/com.typesafe.play/build-link/jars/build-link-2.3.7.jar
+f480f000-f481a000 r--s 00096000 ca:01 138855                             /root/.ivy2/cache/org.scala-lang.modules/scala-xml_2.11/bundles/scala-xml_2.11-1.0.1.jar
+f481a000-f4820000 r--s 00048000 ca:01 142949                             /root/.ivy2/cache/org.apache.commons/commons-lang3/jars/commons-lang3-3.1.jar
+f4820000-f4825000 r--s 0002f000 ca:01 141973                             /home/ec2-user/cache-u/cache-u/lib/gson-2.3.1.jar
+f4825000-f482e000 r--s 000e2000 ca:01 141974                             /home/ec2-user/cache-u/cache-u/lib/mysql-connector-java-5.1.34-bin.jar
+f482e000-f4833000 rw-p 00000000 00:00 0 
+f4833000-f4882000 ---p 00000000 00:00 0 
+f4882000-f4884000 rw-p 00000000 00:00 0 
+f4884000-f48ab000 ---p 00000000 00:00 0 
+f48ab000-f48b1000 rw-p 00000000 00:00 0 
+f48b1000-f48ff000 ---p 00000000 00:00 0 
+f48ff000-f4900000 rw-p 00000000 00:00 0 
+f4900000-f4a20000 rwxp 00000000 00:00 0 
+f4a20000-f6900000 ---p 00000000 00:00 0 
+f6900000-f6a00000 rw-p 00000000 00:00 0 
+f6a00000-f6a05000 rw-p 00000000 00:00 0 
+f6a05000-f6a80000 ---p 00000000 00:00 0 
+f6a80000-f6a99000 r-xp 00000000 ca:01 411481                             /usr/bin/jdk1.8.0_25/jre/lib/i386/libzip.so
+f6a99000-f6a9a000 rw-p 00018000 ca:01 411481                             /usr/bin/jdk1.8.0_25/jre/lib/i386/libzip.so
+f6a9a000-f6aa2000 rw-s 00000000 ca:01 72                                 /tmp/hsperfdata_root/9693
+f6aa2000-f6aad000 r-xp 00000000 ca:01 412933                             /lib/libnss_files-2.17.so
+f6aad000-f6aae000 r--p 0000a000 ca:01 412933                             /lib/libnss_files-2.17.so
+f6aae000-f6aaf000 rw-p 0000b000 ca:01 412933                             /lib/libnss_files-2.17.so
+f6aaf000-f6ab4000 r--s 00053000 ca:01 141975                             /home/ec2-user/cache-u/cache-u/lib/restfb-1.7.0.jar
+f6ab4000-f6ad8000 r-xp 00000000 ca:01 411445                             /usr/bin/jdk1.8.0_25/jre/lib/i386/libjava.so
+f6ad8000-f6ad9000 rw-p 00023000 ca:01 411445                             /usr/bin/jdk1.8.0_25/jre/lib/i386/libjava.so
+f6ad9000-f6ae4000 r-xp 00000000 ca:01 411468                             /usr/bin/jdk1.8.0_25/jre/lib/i386/libverify.so
+f6ae4000-f6ae5000 rw-p 0000b000 ca:01 411468                             /usr/bin/jdk1.8.0_25/jre/lib/i386/libverify.so
+f6ae5000-f6aec000 r-xp 00000000 ca:01 412945                             /lib/librt-2.17.so
+f6aec000-f6aed000 r--p 00006000 ca:01 412945                             /lib/librt-2.17.so
+f6aed000-f6aee000 rw-p 00007000 ca:01 412945                             /lib/librt-2.17.so
+f6aee000-f6af1000 ---p 00000000 00:00 0 
+f6af1000-f6b3f000 rw-p 00000000 00:00 0                                  [stack:9697]
+f6b3f000-f6b7f000 r-xp 00000000 ca:01 412923                             /lib/libm-2.17.so
+f6b7f000-f6b80000 r--p 0003f000 ca:01 412923                             /lib/libm-2.17.so
+f6b80000-f6b81000 rw-p 00040000 ca:01 412923                             /lib/libm-2.17.so
+f6b81000-f7193000 r-xp 00000000 ca:01 411457                             /usr/bin/jdk1.8.0_25/jre/lib/i386/client/libjvm.so
+f7193000-f71b8000 rw-p 00612000 ca:01 411457                             /usr/bin/jdk1.8.0_25/jre/lib/i386/client/libjvm.so
+f71b8000-f75db000 rw-p 00000000 00:00 0 
+f75db000-f7777000 r-xp 00000000 ca:01 412915                             /lib/libc-2.17.so
+f7777000-f7778000 ---p 0019c000 ca:01 412915                             /lib/libc-2.17.so
+f7778000-f777a000 r--p 0019c000 ca:01 412915                             /lib/libc-2.17.so
+f777a000-f777b000 rw-p 0019e000 ca:01 412915                             /lib/libc-2.17.so
+f777b000-f777e000 rw-p 00000000 00:00 0 
+f777e000-f7781000 r-xp 00000000 ca:01 412921                             /lib/libdl-2.17.so
+f7781000-f7782000 r--p 00002000 ca:01 412921                             /lib/libdl-2.17.so
+f7782000-f7783000 rw-p 00003000 ca:01 412921                             /lib/libdl-2.17.so
+f7783000-f7797000 r-xp 00000000 ca:01 412764                             /usr/bin/jdk1.8.0_25/lib/i386/jli/libjli.so
+f7797000-f7798000 rw-p 00013000 ca:01 412764                             /usr/bin/jdk1.8.0_25/lib/i386/jli/libjli.so
+f7798000-f77ae000 r-xp 00000000 ca:01 412941                             /lib/libpthread-2.17.so
+f77ae000-f77af000 r--p 00015000 ca:01 412941                             /lib/libpthread-2.17.so
+f77af000-f77b0000 rw-p 00016000 ca:01 412941                             /lib/libpthread-2.17.so
+f77b0000-f77b2000 rw-p 00000000 00:00 0 
+f77b2000-f77b4000 r--s 0000d000 ca:01 267853                             /root/.ivy2/cache/com.typesafe.play/twirl-api_2.11/jars/twirl-api_2.11-1.0.2.jar
+f77b4000-f77b5000 r--s 00009000 ca:01 142427                             /home/ec2-user/cache-u/cache-u/lib/org.json-20120521.jar
+f77b5000-f77b6000 rw-p 00000000 00:00 0 
+f77b6000-f77b7000 ---p 00000000 00:00 0 
+f77b7000-f77b8000 rw-p 00000000 00:00 0 
+f77b8000-f77b9000 r-xp 00000000 00:00 0                                  [vdso]
+f77b9000-f77d6000 r-xp 00000000 ca:01 412908                             /lib/ld-2.17.so
+f77d6000-f77d7000 r--p 0001c000 ca:01 412908                             /lib/ld-2.17.so
+f77d7000-f77d8000 rw-p 0001d000 ca:01 412908                             /lib/ld-2.17.so
+ffa54000-ffa55000 rwxp 00000000 00:00 0 
+ffa87000-ffaa8000 rw-p 00000000 00:00 0                                  [stack]
+
+VM Arguments:
+jvm_args: -Dapplication.home=/usr/bin/jdk1.8.0_25 -Xms8m 
+java_command: com.sun.tools.javac.Main @/tmp/sbt_128df19/argfile
+java_class_path (initial): /usr/bin/jdk1.8.0_25/lib/tools.jar:/usr/bin/jdk1.8.0_25/classes
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=/usr/lib/jvm/jre
+PATH=/root/../usr/bin/activator:/root/../usr/bin/jdk1.8.0_25/bin:/sbin:/bin:/usr/sbin:/usr/bin:/opt/aws/bin
+USERNAME=root
+SHELL=/bin/bash
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x5847e0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGBUS: [libjvm.so+0x5847e0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGFPE: [libjvm.so+0x46cdb0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGPIPE: [libjvm.so+0x46cdb0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGXFSZ: [libjvm.so+0x46cdb0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGILL: [libjvm.so+0x46cdb0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGUSR1: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGUSR2: [libjvm.so+0x46e560], sa_mask[0]=00100000000000000000000000000000, sa_flags=SA_RESTART|SA_SIGINFO
+SIGHUP: [libjvm.so+0x46fa60], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGINT: [libjvm.so+0x46fa60], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGTERM: [libjvm.so+0x46fa60], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGQUIT: [libjvm.so+0x46fa60], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+
+
+---------------  S Y S T E M  ---------------
+
+OS:Amazon Linux AMI release 2014.09
+
+uname:Linux 3.14.20-20.44.amzn1.x86_64 #1 SMP Mon Oct 6 22:52:46 UTC 2014 x86_64
+libc:glibc 2.17 NPTL 2.17 
+rlimit: STACK 8192k, CORE 0k, NPROC 7843, NOFILE 4096, AS infinity
+load average:0.23 0.06 0.06
+
+/proc/meminfo:
+MemTotal:        1020140 kB
+MemFree:           61756 kB
+MemAvailable:      12340 kB
+Buffers:              64 kB
+Cached:             1308 kB
+SwapCached:            0 kB
+Active:           918504 kB
+Inactive:            792 kB
+Active(anon):     917980 kB
+Inactive(anon):       60 kB
+Active(file):        524 kB
+Inactive(file):      732 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+SwapTotal:             0 kB
+SwapFree:              0 kB
+Dirty:                 0 kB
+Writeback:             0 kB
+AnonPages:        917972 kB
+Mapped:              492 kB
+Shmem:                68 kB
+Slab:              21556 kB
+SReclaimable:      12536 kB
+SUnreclaim:         9020 kB
+KernelStack:        1152 kB
+PageTables:         5752 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:      510068 kB
+Committed_AS:    1777448 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:        2512 kB
+VmallocChunk:   34359725995 kB
+AnonHugePages:         0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:        8192 kB
+DirectMap2M:     1040384 kB
+
+
+CPU:total 1 (1 cores per cpu, 1 threads per core) family 6 model 62 stepping 4, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, aes, clmul, erms, tsc
+
+/proc/cpuinfo:
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 62
+model name	: Intel(R) Xeon(R) CPU E5-2670 v2 @ 2.50GHz
+stepping	: 4
+microcode	: 0x416
+cpu MHz		: 2500.072
+cache size	: 25600 KB
+physical id	: 0
+siblings	: 1
+core id		: 0
+cpu cores	: 1
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx rdtscp lm constant_tsc rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 cx16 pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm xsaveopt fsgsbase smep erms
+bogomips	: 5000.14
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 46 bits physical, 48 bits virtual
+power management:
+
+
+
+Memory: 4k page, physical 1020140k(61164k free), swap 0k(0k free)
+
+vm_info: Java HotSpot(TM) Client VM (25.25-b02) for linux-x86 JRE (1.8.0_25-b17), built on Sep 17 2014 16:20:48 by "java_re" with gcc 4.3.0 20080428 (Red Hat 4.3.0-8)
+
+time: Thu Feb 12 19:19:39 2015
+elapsed time: 3 seconds (0d 0h 0m 3s)
+
